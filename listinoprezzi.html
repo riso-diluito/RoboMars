@@ -1,284 +1,334 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listino Prezzi - ROBOMARS</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Listino prezzi Robomars — Rover spaziali, componenti, software e servizi.">
+  <title>Servizi & Prezzi — ROBOMARS</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Category tabs ── */
+    .price-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 3rem;
+    }
+    .tab-btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--white-dim);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { border-color: var(--red-dim); color: var(--white); }
+    .tab-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            color: white;
-            min-height: 100vh;
-        }
+    /* ── Price categories ── */
+    .price-category { display: none; }
+    .price-category.visible { display: block; }
 
-        /* Menu orizzontale moderno */
-        nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid rgb(178, 34, 34);
-        }
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-icon { font-size: 2rem; }
+    .cat-header h2 {
+      font-size: 1.4rem;
+      color: var(--white);
+    }
 
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+    /* ── Price items ── */
+    .price-list { display: flex; flex-direction: column; gap: 1px; }
+    .price-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      padding: 1.4rem 1.5rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      transition: background 0.2s, border-left 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .price-item:hover {
+      background: var(--surface2);
+      border-left-color: var(--red);
+    }
+    .price-item-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .price-item-desc { font-size: 0.85rem; color: var(--white-mute); line-height: 1.5; }
+    .price-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.88rem;
+      color: var(--red);
+      white-space: nowrap;
+      text-align: right;
+      font-weight: 700;
+    }
+    .price-value small {
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      color: var(--white-mute);
+      font-weight: 400;
+      margin-top: 0.15rem;
+    }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: rgb(178, 34, 34);
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-            letter-spacing: 3px;
-        }
+    /* ── Note ── */
+    .price-note {
+      margin-top: 2.5rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      border-left: 2px solid var(--red-dim);
+      background: var(--red-light);
+    }
+    .price-note p { font-size: 0.85rem; color: var(--white-mute); }
+    .price-note strong { color: var(--white-dim); }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    /* Layout */
+    .prices-wrapper {
+      padding: 5rem 0;
+    }
+    .prices-main {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: rgb(178, 34, 34);
-            transition: width 0.3s;
-        }
-
-        nav a:hover {
-            color: rgb(178, 34, 34);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, rgba(178, 34, 34, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
-            border-radius: 20px;
-            border: 2px solid rgba(178, 34, 34, 0.3);
-        }
-
-        .page-header h1 {
-            font-size: 3.5rem;
-            color: rgb(178, 34, 34);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            text-shadow: 0 0 30px rgba(178, 34, 34, 0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(178, 34, 34, 0.5), 0 0 30px rgba(178, 34, 34, 0.3); }
-            to { text-shadow: 0 0 40px rgba(178, 34, 34, 1), 0 0 60px rgba(178, 34, 34, 0.5); }
-        }
-
-        /* Price Grid */
-        .price-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-            grid-auto-rows: 1fr;
-        }
-
-        /* Price Card */
-        .price-card {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-card:hover {
-            transform: translateY(-10px);
-            border-color: rgb(178, 34, 34);
-            box-shadow: 0 20px 40px rgba(178, 34, 34, 0.3);
-            background: linear-gradient(135deg, rgba(178, 34, 34, 0.05) 0%, rgba(10, 10, 10, 0.95) 100%);
-        }
-
-        .price-card h2 {
-            color: rgb(178, 34, 34);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(178, 34, 34, 0.3);
-        }
-
-        .price-card ul {
-            list-style: none;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        .price-card li {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border-left: 3px solid rgba(178, 34, 34, 0.5);
-            transition: all 0.3s;
-        }
-
-        .price-card li:hover {
-            background: rgba(178, 34, 34, 0.1);
-            border-left-color: rgb(178, 34, 34);
-            padding-left: 1.5rem;
-        }
-
-        .price-card li::before {
-            content: '💰 ';
-            margin-right: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 3px solid rgb(178, 34, 34);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-
-        @media (max-width: 968px) {
-            .price-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-header h1 { font-size: 2.5rem; }
-            .price-card h2 { font-size: 1.5rem; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            nav .container { flex-direction: column; gap: 1rem; }
-            .logo { font-size: 1.5rem; }
-        }
-    </style>
+    @media (max-width: 600px) {
+      .price-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .price-value { text-align: left; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <div class="container">
-            <div class="logo">🚀 ROBOMARS</div>
-            <ul>
-                <li><a href="robomars1.html">HOME</a></li>
-                <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
-                <li><a href="listinoprezzi.html">Servizi</a></li>
-                <li><a href="BusinessPlan.html">Business Plan</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1>Listino Prezzi</h1>
-        </div>
+<nav>
+  <div class="container">
+    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="robomars1.html">Home</a></li>
+      <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
+      <li><a href="listinoprezzi.html" class="active">Servizi</a></li>
+      <li><a href="BusinessPlan.html">Business Plan</a></li>
+    </ul>
+  </div>
+</nav>
 
-        <!-- Price Grid -->
-        <div class="price-grid">
-            <!-- Rover Spaziale ROSITA -->
-            <div class="price-card">
-                <h2>🛰️ Rover Spaziale ROSITA</h2>
-                <ul>
-                    <li>Modello Base (con sensori di base e telecamera HD): €2.500.000,00</li>
-                    <li>Modello Avanzato (con AI per navigazione autonoma, analisi geologica): €3.500.000,00</li>
-                    <li>Modello Scientifico (con strumenti avanzati per analisi atmosferica e raccolta dati): €7.500.000,00</li>
-                </ul>
-            </div>
+<div class="container">
+  <div class="page-hero fade-up">
+    <span class="section-label">Prodotti & Servizi</span>
+    <h1>Listino <em>Prezzi</em></h1>
+    <div class="divider"></div>
+    <p style="max-width: 580px;">Esplora la nostra gamma di rover, componenti, soluzioni software e servizi di supporto per l'esplorazione spaziale.</p>
+  </div>
+</div>
 
-            <!-- Componenti e Tecnologie -->
-            <div class="price-card">
-                <h2>⚙️ Componenti e Tecnologie</h2>
-                <ul>
-                    <li>Motori di propulsione avanzati: €500.000,00 - €1.500.000,00</li>
-                    <li>Sensori per rilevamento ambientale: €200.000,00 - €750.000,00</li>
-                    <li>Sistemi di navigazione autonoma: €1.000.000,00 - €2.500.000,00</li>
-                    <li>Modulo di comunicazione criptato: €1.200.000,00</li>
-                </ul>
-            </div>
+<div class="prices-wrapper">
+  <div class="container">
 
-            <!-- Software e AI -->
-            <div class="price-card">
-                <h2>🤖 Software e AI</h2>
-                <ul>
-                    <li>Software di controllo remoto: €300.000,00</li>
-                    <li>AI per navigazione autonoma e analisi dati: €1.500.000,00</li>
-                    <li>Simulazioni e test virtuali del rover: €500.000,00</li>
-                </ul>
-            </div>
-
-            <!-- Servizi Aggiuntivi -->
-            <div class="price-card">
-                <h2>🔧 Servizi Aggiuntivi</h2>
-                <ul>
-                    <li>Manutenzione e riparazione di robot di terze parti: €250.000,00 - €1.000.000,00</li>
-                    <li>Supporto tecnico e formazione: €100.000,00 all'anno</li>
-                    <li>Consulenze per sviluppo di tecnologie spaziali: €500.000,00 - €2.000.000,00</li>
-                </ul>
-            </div>
-        </div>
+    <!-- Tabs -->
+    <div class="price-tabs">
+      <button class="tab-btn active" onclick="showTab('rover', this)">🛰️ Rover ROSITA</button>
+      <button class="tab-btn" onclick="showTab('componenti', this)">⚙️ Componenti</button>
+      <button class="tab-btn" onclick="showTab('software', this)">🤖 Software & AI</button>
+      <button class="tab-btn" onclick="showTab('servizi', this)">🔧 Servizi</button>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>Azienda Robomars © 2026 - Esplorando il futuro dell'umanità</p>
-    </footer>
+    <div class="prices-main">
+
+      <!-- ROVER -->
+      <div id="rover" class="price-category visible">
+        <div class="cat-header">
+          <span class="cat-icon">🛰️</span>
+          <div>
+            <span class="section-label">Prodotto principale</span>
+            <h2>Rover Spaziale ROSITA</h2>
+          </div>
+        </div>
+        <div class="price-list">
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Modello Base</div>
+              <p class="price-item-desc">Sensori di base, telecamera HD, sistema di navigazione standard. Ideale per missioni di esplorazione preliminare.</p>
+            </div>
+            <div class="price-value">€ 2.500.000<small>IVA esclusa</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Modello Avanzato</div>
+              <p class="price-item-desc">Intelligenza artificiale per navigazione autonoma, modulo di analisi geologica integrato, sensori avanzati.</p>
+            </div>
+            <div class="price-value">€ 3.500.000<small>IVA esclusa</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Modello Scientifico</div>
+              <p class="price-item-desc">Strumenti completi per analisi atmosferica, raccolta dati ad alta precisione, laboratorio chimico integrato. Per missioni di ricerca avanzata.</p>
+            </div>
+            <div class="price-value">€ 7.500.000<small>IVA esclusa</small></div>
+          </div>
+        </div>
+        <div class="price-note">
+          <p><strong>Nota:</strong> Tutti i modelli includono garanzia di 24 mesi, documentazione tecnica completa e supporto post-vendita per i primi 6 mesi. Personalizzazioni su richiesta. Prezzi indicativi, preventivo dettagliato su richiesta.</p>
+        </div>
+      </div>
+
+      <!-- COMPONENTI -->
+      <div id="componenti" class="price-category">
+        <div class="cat-header">
+          <span class="cat-icon">⚙️</span>
+          <div>
+            <span class="section-label">Hardware</span>
+            <h2>Componenti & Tecnologie</h2>
+          </div>
+        </div>
+        <div class="price-list">
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Motori di propulsione avanzati</div>
+              <p class="price-item-desc">Motori ad alta efficienza per terreni difficili, ottimizzati per ambienti a bassa gravità.</p>
+            </div>
+            <div class="price-value">€ 500.000 – 1.500.000<small>in base alle specifiche</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Sensori per rilevamento ambientale</div>
+              <p class="price-item-desc">Array di sensori per pressione, temperatura, composizione atmosferica e analisi del suolo.</p>
+            </div>
+            <div class="price-value">€ 200.000 – 750.000<small>in base alla configurazione</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Sistemi di navigazione autonoma</div>
+              <p class="price-item-desc">Hardware dedicato per l'elaborazione in tempo reale dei dati di navigazione e obstacle avoidance.</p>
+            </div>
+            <div class="price-value">€ 1.000.000 – 2.500.000<small>in base alle specifiche</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Modulo di comunicazione criptato</div>
+              <p class="price-item-desc">Sistema di comunicazione a lungo raggio con protocolli di crittografia avanzata per il collegamento Terra–Marte.</p>
+            </div>
+            <div class="price-value">€ 1.200.000<small>prezzo fisso</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOFTWARE -->
+      <div id="software" class="price-category">
+        <div class="cat-header">
+          <span class="cat-icon">🤖</span>
+          <div>
+            <span class="section-label">Intelligenza Artificiale</span>
+            <h2>Software & AI</h2>
+          </div>
+        </div>
+        <div class="price-list">
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Software di controllo remoto</div>
+              <p class="price-item-desc">Interfaccia completa per il controllo da Terra con telemetria in tempo reale, dashboard diagnostica e log di missione.</p>
+            </div>
+            <div class="price-value">€ 300.000<small>licenza perpetua</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">AI per navigazione autonoma & analisi dati</div>
+              <p class="price-item-desc">Modulo di intelligenza artificiale per decisioni in tempo reale, adattamento al terreno e analisi scientifica automatizzata.</p>
+            </div>
+            <div class="price-value">€ 1.500.000<small>licenza perpetua</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Simulazioni e test virtuali del rover</div>
+              <p class="price-item-desc">Ambiente di simulazione completo per testare il rover in condizioni marziane prima del lancio.</p>
+            </div>
+            <div class="price-value">€ 500.000<small>licenza perpetua</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVIZI -->
+      <div id="servizi" class="price-category">
+        <div class="cat-header">
+          <span class="cat-icon">🔧</span>
+          <div>
+            <span class="section-label">Supporto</span>
+            <h2>Servizi Aggiuntivi</h2>
+          </div>
+        </div>
+        <div class="price-list">
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Manutenzione & riparazione di robot di terze parti</div>
+              <p class="price-item-desc">Interventi su robot non prodotti da Robomars, previa disponibilità della documentazione tecnica originale.</p>
+            </div>
+            <div class="price-value">€ 250.000 – 1.000.000<small>in base al progetto</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Supporto tecnico & formazione</div>
+              <p class="price-item-desc">Assistenza tecnica continuativa e programmi di formazione per il personale del cliente.</p>
+            </div>
+            <div class="price-value">€ 100.000<small>all'anno</small></div>
+          </div>
+          <div class="price-item">
+            <div>
+              <div class="price-item-name">Consulenze per sviluppo di tecnologie spaziali</div>
+              <p class="price-item-desc">Supporto strategico e tecnico per lo sviluppo di nuove tecnologie nel settore aerospaziale.</p>
+            </div>
+            <div class="price-value">€ 500.000 – 2.000.000<small>in base al progetto</small></div>
+          </div>
+        </div>
+        <div class="price-note">
+          <p><strong>Tutti i servizi</strong> sono soggetti a contratto specifico. Contattateci per un preventivo personalizzato: <strong>robomars.ca@gmail.com</strong></p>
+        </div>
+      </div>
+
+    </div><!-- /prices-main -->
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">🚀 ROBOMARS</span>
+      <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.price-category').forEach(el => el.classList.remove('visible'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('visible');
+    btn.classList.add('active');
+  }
+</script>
+
 </body>
 </html>

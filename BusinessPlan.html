@@ -1,349 +1,356 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Plan - ROBOMARS</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Business Plan Robomars — Analisi strategica, SWOT, R&S e progetto imprenditoriale.">
+  <title>Business Plan — ROBOMARS</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Two-column layout ── */
+    .bp-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      padding: 4rem 0 6rem;
+      align-items: start;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            color: white;
-            min-height: 100vh;
-        }
+    /* ── Sidebar ── */
+    .bp-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 1.5rem);
+    }
+    .sidebar-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin: 0; }
+    .sidebar-nav a {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      color: var(--white-mute);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-left: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .sidebar-nav a:hover {
+      color: var(--white);
+      border-left-color: var(--red);
+      padding-left: 1.2rem;
+    }
+    .sidebar-nav li.active a {
+      color: var(--red);
+      border-left-color: var(--red);
+    }
 
-        /* Menu orizzontale moderno */
-        nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid rgb(178, 34, 34);
-        }
+    /* ── BP Sections ── */
+    .bp-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: calc(var(--nav-h) + 2rem);
+    }
+    .bp-section h2 {
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .bp-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 1.4em;
+      background: var(--red);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .bp-section p { margin-bottom: 1rem; }
+    .bp-section p:last-child { margin-bottom: 0; }
 
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+    /* ── Ordered list ── */
+    .bp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .bp-list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--red-dim);
+      font-size: 0.95rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+      transition: border-left-color 0.2s, background 0.2s;
+    }
+    .bp-list li:hover { border-left-color: var(--red); background: var(--surface2); }
+    .bp-list li .item-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 700;
+      padding-top: 0.15rem;
+    }
+    .bp-list li strong { color: var(--white); }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: rgb(178, 34, 34);
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-            letter-spacing: 3px;
-        }
+    /* ── Bullet list ── */
+    .bp-bullets {
+      list-style: none;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .bp-bullets li {
+      padding: 0.7rem 1rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+    .bp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0.6rem;
+      color: var(--red);
+      font-size: 0.8rem;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    /* ── SWOT Grid ── */
+    .swot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-top: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .swot-cell {
+      padding: 1.8rem;
+      background: var(--surface);
+    }
+    .swot-cell:hover { background: var(--surface2); }
+    .swot-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .swot-cell.s .swot-title { color: #4ade80; }
+    .swot-cell.w .swot-title { color: #f87171; }
+    .swot-cell.o .swot-title { color: #60a5fa; }
+    .swot-cell.t .swot-title { color: #fbbf24; }
+    .swot-cell p { font-size: 0.9rem; }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    /* ── Divider between sections ── */
+    .bp-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 3.5rem 0;
+    }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: rgb(178, 34, 34);
-            transition: width 0.3s;
-        }
-
-        nav a:hover {
-            color: rgb(178, 34, 34);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Layout Container */
-        .layout-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-        }
-
-        /* Sidebar Menu */
-        .sidebar {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .sidebar ol {
-            list-style: none;
-            counter-reset: item;
-        }
-
-        .sidebar li {
-            margin: 1rem 0;
-            counter-increment: item;
-        }
-
-        .sidebar li::before {
-            content: counter(item) ". ";
-            color: rgb(178, 34, 34);
-            font-weight: bold;
-            margin-right: 0.5rem;
-        }
-
-        .sidebar a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: all 0.3s;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 8px;
-        }
-
-        .sidebar a:hover {
-            color: rgb(178, 34, 34);
-            background: rgba(178, 34, 34, 0.1);
-            padding-left: 1rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            padding: 3rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 3px solid rgba(178, 34, 34, 0.3);
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            color: rgb(178, 34, 34);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-        }
-
-        .section {
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(178, 34, 34, 0.2);
-            transition: all 0.3s;
-        }
-
-        .section:hover {
-            border-color: rgba(178, 34, 34, 0.5);
-            box-shadow: 0 5px 20px rgba(178, 34, 34, 0.2);
-        }
-
-        .section h2 {
-            color: rgb(178, 34, 34);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            scroll-margin-top: 100px;
-        }
-
-        .section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: justify;
-            margin-bottom: 1rem;
-        }
-
-        .section ol,
-        .section ul {
-            margin-left: 2rem;
-            margin-top: 1rem;
-        }
-
-        .section li {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            margin: 0.8rem 0;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 3px solid rgb(178, 34, 34);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-
-        @media (max-width: 968px) {
-            .layout-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: relative;
-                top: 0;
-            }
-
-            .page-header h1 { font-size: 2rem; }
-            .section h2 { font-size: 1.5rem; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            nav .container { flex-direction: column; gap: 1rem; }
-            .logo { font-size: 1.5rem; }
-        }
-    </style>
+    @media (max-width: 860px) {
+      .bp-layout { grid-template-columns: 1fr; }
+      .bp-sidebar { position: relative; top: 0; display: none; }
+      .swot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <div class="container">
-            <div class="logo">🚀 ROBOMARS</div>
-            <ul>
-                <li><a href="robomars1.html">HOME</a></li>
-                <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
-                <li><a href="listinoprezzi.html">Servizi</a></li>
-                <li><a href="BusinessPlan.html">Business Plan</a></li>
-            </ul>
+
+<nav>
+  <div class="container">
+    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="robomars1.html">Home</a></li>
+      <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
+      <li><a href="listinoprezzi.html">Servizi</a></li>
+      <li><a href="BusinessPlan.html" class="active">Business Plan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-hero fade-up">
+    <span class="section-label">Strategia aziendale</span>
+    <h1>Business <em>Plan</em></h1>
+    <div class="divider"></div>
+    <p style="max-width: 560px;">Analisi strategica, competenze, ricerca e sviluppo del progetto Robomars per l'esplorazione marziana.</p>
+  </div>
+
+  <div class="bp-layout">
+
+    <!-- Sidebar -->
+    <aside class="bp-sidebar">
+      <span class="sidebar-label">Indice</span>
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li><a href="#descrizione">1. Descrizione dell'azienda</a></li>
+        <li><a href="#businessidea">2. Business idea</a></li>
+        <li><a href="#competenze">3. Competenze tecniche</a></li>
+        <li><a href="#fattori">4. Fattori fondamentali</a></li>
+        <li><a href="#rds">5. Ricerca e sviluppo</a></li>
+        <li><a href="#swot">6. Analisi SWOT</a></li>
+        <li><a href="#territoriale">7. Analisi Territoriale</a></li>
+        <li><a href="#progetto">8. Il nostro Progetto</a></li>
+      </ul>
+    </aside>
+
+    <!-- Content -->
+    <main>
+
+      <div class="bp-section" id="descrizione">
+        <h2>Descrizione dell'azienda</h2>
+        <p>Robomars è un team specializzato nella robotica aerospaziale, con l'obiettivo di progettare e costruire rover destinati all'esplorazione di Marte. L'azienda sfrutta conoscenze avanzate in matematica, fisica, chimica e informatica per realizzare soluzioni pratiche, integrando tecnologie innovative come l'Intelligenza Artificiale per l'autonomia decisionale.</p>
+        <p>Robomars si occupa anche di riparazioni di robot, inclusi quelli non prodotti dall'azienda, purché siano disponibili i progetti tecnici originali.</p>
+      </div>
+
+      <div class="bp-divider"></div>
+
+      <div class="bp-section" id="businessidea">
+        <h2>Business idea</h2>
+        <p>L'idea centrale di Robomars è un rover avanzato progettato per muoversi sul terreno impervio di Marte, raccogliendo dati scientifici per l'analisi e la ricerca. L'obiettivo è promuovere, sviluppare e diffondere la ricerca spaziale, contribuendo all'espansione della conoscenza scientifica sull'Universo.</p>
+        <p>Il target di mercato include agenzie spaziali, settori geologici-spaziali e aziende robotiche e informatiche, interessate a tecnologie innovative per l'esplorazione planetaria. Il rover si distingue per un design robusto e agile, con struttura a quattro ruote motrici, sensori avanzati in grado di rilevare tracce di vita e analizzare le condizioni atmosferiche. L'intelligenza artificiale permette la navigazione autonoma, adattandosi ai cambiamenti del terreno e ottimizzando il consumo energetico.</p>
+      </div>
+
+      <div class="bp-divider"></div>
+
+      <div class="bp-section" id="competenze">
+        <h2>Competenze tecniche</h2>
+        <p>Robomars possiede un ampio ventaglio di competenze tecniche interdisciplinari:</p>
+        <ul class="bp-bullets">
+          <li><strong>Matematica:</strong> calcolo di traiettorie interplanetarie, stima del carburante necessario e ottimizzazione dei percorsi di esplorazione.</li>
+          <li><strong>Fisica:</strong> calcolo delle orbite, ottimizzazione del peso dei rover e comprensione delle leggi del movimento in condizioni di bassa gravità.</li>
+          <li><strong>Chimica:</strong> analisi della composizione del suolo marziano e identificazione di potenziali risorse naturali.</li>
+          <li><strong>Informatica:</strong> progettazione e programmazione dei comandi, controllo di missione, visione artificiale e sistemi di intelligenza artificiale per l'autonomia operativa.</li>
+        </ul>
+      </div>
+
+      <div class="bp-divider"></div>
+
+      <div class="bp-section" id="fattori">
+        <h2>Fattori fondamentali del progetto</h2>
+        <p>Il progetto si fonda su cinque pilastri principali:</p>
+        <ol class="bp-list">
+          <li><span class="item-num">01</span><div><strong>Innovatività</strong> — Integrazione di tecnologie all'avanguardia: IA, struttura 4WD e sensori avanzati per l'esplorazione autonoma del suolo marziano.</div></li>
+          <li><span class="item-num">02</span><div><strong>Vendibilità</strong> — La domanda di rover spaziali è in costante crescita, alimentata dall'interesse di agenzie spaziali, istituti di ricerca e aziende tecnologiche.</div></li>
+          <li><span class="item-num">03</span><div><strong>Competitività</strong> — Le tecnologie sviluppate offrono robustezza, agilità e semplicità d'uso superiori rispetto ai concorrenti, posizionando il rover come soluzione leader nel settore.</div></li>
+          <li><span class="item-num">04</span><div><strong>Fattibilità</strong> — Il progetto si sostiene grazie a finanziamenti iniziali dei soci e investimenti di enti pubblici e privati, sfruttando un mercato in espansione.</div></li>
+          <li><span class="item-num">05</span><div><strong>Sostenibilità</strong> — Tecnologie a basso consumo energetico, materiali ecologici e sistemi di gestione dei rifiuti per ridurre l'impatto ambientale.</div></li>
+        </ol>
+      </div>
+
+      <div class="bp-divider"></div>
+
+      <div class="bp-section" id="rds">
+        <h2>Ricerca e sviluppo</h2>
+        <p>L'azienda dedica ampie risorse alla R&S, concentrandosi su aree strategiche chiave:</p>
+        <ul class="bp-bullets">
+          <li><strong>Propulsione:</strong> motori potenti ed efficienti per esplorazioni su terreni difficili</li>
+          <li><strong>Navigazione e Controllo:</strong> sistemi avanzati per guida autonoma, evitamento ostacoli e controllo remoto</li>
+          <li><strong>Strumenti Scientifici:</strong> tecnologie per l'analisi dettagliata del suolo, delle rocce e dell'atmosfera marziana</li>
+          <li><strong>Comunicazione:</strong> sistemi rapidi e sicuri per il collegamento continuo rover-Terra</li>
+          <li><strong>Energia:</strong> batterie avanzate e raccolta di energia solare per prolungare le missioni</li>
+          <li><strong>Materiali Avanzati:</strong> componenti leggeri e resistenti, ottimizzati per le condizioni estreme di Marte</li>
+          <li><strong>Supporto alla Vita:</strong> tecnologie per il riciclo di aria e acqua per missioni di lunga durata</li>
+          <li><strong>Esplorazione Autonoma:</strong> algoritmi di IA per decisioni in tempo reale e adattamento ambientale</li>
+        </ul>
+      </div>
+
+      <div class="bp-divider"></div>
+
+      <div class="bp-section" id="swot">
+        <h2>Analisi SWOT</h2>
+        <div class="swot-grid">
+          <div class="swot-cell s">
+            <span class="swot-title">Punti di forza</span>
+            <p>Competenze avanzate in robotica e IA. Approccio innovativo nell'esplorazione spaziale. Team multidisciplinare con expertise complementari.</p>
+          </div>
+          <div class="swot-cell w">
+            <span class="swot-title">Debolezze</span>
+            <p>Difficoltà nel reperire materiali specifici per la costruzione dei rover. Costi di produzione elevati. Dipendenza da finanziamenti esterni.</p>
+          </div>
+          <div class="swot-cell o">
+            <span class="swot-title">Opportunità</span>
+            <p>Collaborazioni con agenzie spaziali e istituzioni scientifiche. Mercato spaziale in forte espansione. Crescente interesse istituzionale per Marte.</p>
+          </div>
+          <div class="swot-cell t">
+            <span class="swot-title">Minacce</span>
+            <p>Concorrenza internazionale agguerrita (NASA, ESA, SpaceX). Rischi di attacchi informatici ai sistemi di controllo. Normative spaziali in evoluzione.</p>
+          </div>
         </div>
-    </nav>
+      </div>
 
-    <!-- Layout Container -->
-    <div class="layout-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <ol>
-                <li><a href="#Descrizionedellazienda">Descrizione dell'azienda</a></li>
-                <li><a href="#Businessidea">Business idea</a></li>
-                <li><a href="#Competenzetecniche">Competenze tecniche</a></li>
-                <li><a href="#Fattorifondamentalidelprogetto">Fattori fondamentali del progetto</a></li>
-                <li><a href="#Ricercaesviluppo">Ricerca e sviluppo</a></li>
-                <li><a href="#AnalisiSWOT">Analisi SWOT</a></li>
-                <li><a href="#AnalisiTerritoriale">Analisi Territoriale</a></li>
-                <li><a href="#IlnostroProgetto">Il nostro Progetto</a></li>
-            </ol>
-        </aside>
+      <div class="bp-divider"></div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="page-header">
-                <h1>Business Plan di Robomars</h1>
-            </div>
+      <div class="bp-section" id="territoriale">
+        <h2>Analisi Territoriale</h2>
+        <p>La scelta di <strong>Villafranca di Verona</strong> come sede operativa offre vantaggi strategici significativi. La località è ben collegata grazie a una rete ferroviaria e stradale efficiente, oltre alla presenza dell'Aeroporto Internazionale Valerio Catullo. L'economia locale è diversificata — agricoltura, logistica, turismo e industria — con una forte presenza di centri di ricerca come le Università di Verona e Padova.</p>
+        <p>I vantaggi principali includono il supporto regionale per l'innovazione aerospaziale e l'accesso a collaborazioni accademiche. Gli aspetti critici da considerare riguardano i costi operativi elevati, i potenziali rischi ambientali e le problematiche legate alla sicurezza delle infrastrutture.</p>
+      </div>
 
-            <div class="section">
-                <h2 id="Descrizionedellazienda">Descrizione dell'azienda</h2>
-                <p>Robomars è un team specializzato nella robotica aerospaziale, con l'obiettivo di progettare e costruire rover destinati all'esplorazione di Marte. L'azienda sfrutta conoscenze avanzate in matematica, fisica, chimica e informatica per realizzare soluzioni pratiche, integrando tecnologie innovative come l'Intelligenza Artificiale (IA) per l'autonomia decisionale.
-                Robomars si occupa anche di riparazioni di robot, inclusi quelli non prodotti dall'azienda, purché siano disponibili i progetti iniziali.</p>
-            </div>
+      <div class="bp-divider"></div>
 
-            <div class="section">
-                <h2 id="Businessidea">Business idea</h2>
-                <p>L'idea centrale di Robomars è un rover avanzato progettato per muoversi sul terreno impervio di Marte, raccogliendo dati scientifici per l'analisi e la ricerca. L'obiettivo è promuovere, sviluppare e diffondere la ricerca spaziale, contribuendo all'espansione della conoscenza scientifica sull'Universo. Il target di mercato include agenzie spaziali, settori geologici-spaziali e aziende robotiche e informatiche, interessate a tecnologie innovative per l'esplorazione planetaria.</p>
-                <p>Il rover si distingue per un design robusto e agile, con una struttura a quattro ruote motrici e sensori avanzati in grado di rilevare tracce di vita e analizzare le condizioni atmosferiche. L'intelligenza artificiale permette al rover di navigare autonomamente, adattandosi ai cambiamenti del terreno e ottimizzando il consumo energetico.</p>
-            </div>
+      <div class="bp-section" id="progetto">
+        <h2>Il nostro Progetto</h2>
+        <p>Robomars si configura come un progetto ambizioso e altamente innovativo nel campo della robotica spaziale. La tecnologia sviluppata per i nostri rover rappresenta un'eccellenza nell'ambito dell'esplorazione planetaria, con un potenziale significativo non solo per le missioni su Marte, ma anche per applicazioni in altri settori industriali e scientifici.</p>
+        <p>La scelta strategica di Villafranca di Verona offre le infrastrutture e le connessioni necessarie per sostenere la crescita del progetto, garantendo un posizionamento solido nel mercato aerospaziale internazionale.</p>
+      </div>
 
-            <div class="section">
-                <h2 id="Competenzetecniche">Competenze tecniche</h2>
-                <p>Robomars possiede un ampio ventaglio di competenze tecniche. In ambito matematico, il team è in grado di calcolare traiettorie interplanetarie, stimare il carburante necessario e ottimizzare i percorsi di esplorazione su Marte. Dal punto di vista fisico, l'azienda è specializzata nel calcolo delle orbite, nell'ottimizzazione del peso dei rover e nella comprensione delle leggi del movimento in condizioni di bassa gravità.</p>
-                <p>L'analisi chimica è fondamentale per valutare la composizione del suolo marziano e identificare potenziali risorse naturali. In informatica, Robomars si distingue nella progettazione e programmazione dei comandi, nel controllo di missione, nella visione artificiale e nell'integrazione di sistemi di intelligenza artificiale per garantire l'autonomia operativa del rover.</p>
-            </div>
+    </main>
+  </div><!-- /bp-layout -->
+</div>
 
-            <div class="section">
-                <h2 id="Fattorifondamentalidelprogetto">Fattori fondamentali del progetto</h2>
-                <p>Il progetto di Robomars si fonda su sei pilastri principali:</p>
-                <ol>
-                    <li>Innovatività: Integrazione di tecnologie all'avanguardia come l'intelligenza artificiale, una struttura a quattro ruote motrici e sensori avanzati per l'esplorazione autonoma del suolo marziano.</li>
-                    <li>Vendibilità: La domanda di rover spaziali è in costante crescita, alimentata dall'interesse di agenzie spaziali, istituti di ricerca e aziende tecnologiche.</li>
-                    <li>Competitività: Le tecnologie sviluppate offrono robustezza, agilità e semplicità d'uso superiori rispetto ai concorrenti, posizionando il nostro rover come una soluzione leader nel settore.</li>
-                    <li>Fattibilità: Il progetto si sostiene grazie a finanziamenti iniziali dei soci e investimenti di enti pubblici e privati, sfruttando un mercato in espansione.</li>
-                    <li>Sostenibilità: Il nostro rover è progettato con tecnologie a basso consumo energetico, materiali ecologici e sistemi di gestione dei rifiuti, contribuendo alla riduzione dell'impatto ambientale.</li>
-                </ol>
-            </div>
-
-            <div class="section">
-                <h2 id="Ricercaesviluppo">Ricerca e sviluppo</h2>
-                <p>L'azienda dedica ampie risorse alla Ricerca e Sviluppo, concentrandosi su diverse aree strategiche:</p>
-                <ul>
-                    <li>Propulsione: motori potenti ed efficienti per esplorazioni su terreni difficili;</li>
-                    <li>Navigazione e Controllo: sistemi avanzati per guida autonoma, evitamento ostacoli e controllo remoto;</li>
-                    <li>Strumenti Scientifici: tecnologie per l'analisi dettagliata del suolo, delle rocce e dell'atmosfera marziana;</li>
-                    <li>Comunicazione: sistemi rapidi e sicuri per garantire un costante collegamento tra il rover e la Terra;</li>
-                    <li>Energia: batterie avanzate e raccolta di energia solare per prolungare le missioni;</li>
-                    <li>Materiali Avanzati: leggeri e resistenti, ottimizzati per le condizioni estreme di Marte;</li>
-                    <li>Supporto alla Vita: tecnologie per il riciclo di aria e acqua, utili per missioni di lunga durata;</li>
-                    <li>Esplorazione Autonoma: algoritmi di IA per decisioni in tempo reale e adattamento ambientale.</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2 id="AnalisiSWOT">Analisi SWOT</h2>
-                <p>Robomars ha identificato i principali punti di forza, debolezza, opportunità e minacce attraverso un'analisi SWOT dettagliata.</p>
-                <ul>
-                    <li>I punti di forza includono le competenze avanzate in robotica e IA e l'approccio innovativo nell'esplorazione spaziale.</li>
-                    <li>Le debolezze riguardano la difficoltà nel reperire materiali specifici per la costruzione dei rover.</li>
-                    <li>Le opportunità sono rappresentate dalle collaborazioni con aziende e istituzioni scientifiche e dall'espansione nel mercato spaziale.</li>
-                    <li>Le minacce principali sono costituite dalla concorrenza internazionale e dai rischi di attacchi informatici.</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2 id="AnalisiTerritoriale">Analisi Territoriale</h2>
-                <p>La scelta di Villafranca di Verona come sede operativa offre vantaggi strategici significativi. La località è ben collegata grazie a una rete ferroviaria e stradale efficiente, oltre alla presenza di un aeroporto internazionale. L'economia locale è diversificata e include agricoltura, logistica, turismo e industria, con una forte presenza di centri di ricerca come l'Università di Verona e Padova.</p>
-                <p>I vantaggi di questa scelta territoriale comprendono supporto regionale per l'innovazione aerospaziale e accesso a collaborazioni accademiche. Tuttavia, bisogna considerare i costi elevati, i potenziali rischi ambientali e le problematiche legate alla sicurezza.</p>
-            </div>
-
-            <div class="section">
-                <h2 id="IlnostroProgetto">Il nostro Progetto</h2>
-                <p>Robomars si configura come un progetto ambizioso e altamente innovativo nel campo della robotica spaziale. La tecnologia sviluppata per i nostri rover rappresenta un'eccellenza nell'ambito dell'esplorazione planetaria, con un potenziale significativo non solo per le missioni su Marte, ma anche per applicazioni in altri settori industriali e scientifici. La scelta strategica di Villafranca di Verona offre le infrastrutture e le connessioni necessarie per sostenere la crescita del progetto, garantendo un posizionamento solido nel mercato aerospaziale.</p>
-            </div>
-        </main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">🚀 ROBOMARS</span>
+      <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
     </div>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        <p>Azienda Robomars © 2026 - Esplorando il futuro dell'umanità</p>
-    </footer>
+<script>
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('.bp-section');
+  const links = document.querySelectorAll('.sidebar-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(a => {
+      a.parentElement.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
 </body>
 </html>

@@ -1,317 +1,326 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Siamo - ROBOMARS</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Il team Robomars — ingegneri, ricercatori e visionari dell'esplorazione spaziale.">
+  <title>Chi Siamo — ROBOMARS</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Page hero ── */
+    .page-hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
+    .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    .page-hero h1 em { color: var(--red); font-style: normal; }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            color: white;
-            min-height: 100vh;
-        }
+    /* ── Descrizione ── */
+    .desc-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .desc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .desc-left h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; }
+    .desc-left h2 em { color: var(--red); font-style: normal; }
+    .desc-right p { margin-bottom: 1.1rem; }
+    .desc-right p:last-child { margin-bottom: 0; }
 
-        /* Menu orizzontale moderno */
-        nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid rgb(178, 34, 34);
-        }
+    /* ── Organigramma ── */
+    .org-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .org-img-wrap {
+      margin-top: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .org-img-wrap img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .org-img-wrap:hover img { transform: scale(1.01); }
 
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+    /* ── Team ── */
+    .team-section { padding: 6rem 0; }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: rgb(178, 34, 34);
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-            letter-spacing: 3px;
-        }
+    .team-tier { margin-bottom: 4rem; }
+    .tier-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      border-left: 2px solid var(--red);
+      padding-left: 0.8rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .member-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .member-card:hover {
+      border-color: var(--red-dim);
+      box-shadow: 0 0 24px var(--red-glow);
+    }
+    .member-role {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .member-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .member-desc { font-size: 0.88rem; line-height: 1.6; }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: rgb(178, 34, 34);
-            transition: width 0.3s;
-        }
-
-        nav a:hover {
-            color: rgb(178, 34, 34);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(178, 34, 34, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
-            border-radius: 20px;
-            border: 2px solid rgba(178, 34, 34, 0.3);
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            color: rgb(178, 34, 34);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-        }
-
-        .section {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s;
-        }
-
-        .section:hover {
-            border-color: rgb(178, 34, 34);
-            box-shadow: 0 10px 30px rgba(178, 34, 34, 0.3);
-        }
-
-        .section h1 {
-            color: rgb(178, 34, 34);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid rgba(178, 34, 34, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .section h2 {
-            color: rgb(178, 34, 34);
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .section h3 {
-            color: rgba(178, 34, 34, 0.9);
-            font-size: 1.4rem;
-            margin: 1.5rem 0 1rem 0;
-            font-style: italic;
-        }
-
-        .section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: justify;
-            margin-bottom: 1rem;
-        }
-
-        .section li {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            margin: 1rem 0;
-            margin-left: 2rem;
-        }
-
-        .section li b {
-            color: rgb(178, 34, 34);
-            font-weight: 700;
-        }
-
-        .organigramma-container {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            border: 2px solid rgba(178, 34, 34, 0.2);
-        }
-
-        #organigramma {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            border: 3px solid rgba(178, 34, 34, 0.3);
-            transition: all 0.3s;
-        }
-
-        #organigramma:hover {
-            border-color: rgb(178, 34, 34);
-            box-shadow: 0 10px 40px rgba(178, 34, 34, 0.4);
-            transform: scale(1.02);
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 3px solid rgb(178, 34, 34);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 { font-size: 2rem; }
-            .section h1 { font-size: 1.5rem; }
-            .section h2 { font-size: 1.3rem; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            nav .container { flex-direction: column; gap: 1rem; }
-            .logo { font-size: 1.5rem; }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .desc-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <div class="container">
-            <div class="logo">🚀 ROBOMARS</div>
-            <ul>
-                <li><a href="robomars1.html">HOME</a></li>
-                <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
-                <li><a href="listinoprezzi.html">Servizi</a></li>
-                <li><a href="BusinessPlan.html">Business Plan</a></li>
-            </ul>
+
+<nav>
+  <div class="container">
+    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="robomars1.html">Home</a></li>
+      <li><a href="paginaChiSiamo.html" class="active">Chi Siamo</a></li>
+      <li><a href="listinoprezzi.html">Servizi</a></li>
+      <li><a href="BusinessPlan.html">Business Plan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Page Hero ── -->
+<div class="container">
+  <div class="page-hero fade-up">
+    <span class="section-label">L'azienda</span>
+    <h1>Chi <em>Siamo</em></h1>
+    <div class="divider"></div>
+    <p style="max-width: 600px;">Un team multidisciplinare di ingegneri, ricercatori e visionari uniti dalla passione per l'esplorazione spaziale.</p>
+  </div>
+</div>
+
+<!-- ── Descrizione Azienda ── -->
+<section class="desc-section">
+  <div class="container">
+    <div class="desc-grid">
+      <div class="desc-left fade-up">
+        <span class="section-label">La nostra storia</span>
+        <h2>Una <em>visione</em> chiara per il futuro</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="desc-right fade-up delay-1">
+        <p>Robomars nasce con una visione chiara: progettare e sviluppare <strong>rover spaziali all'avanguardia</strong> per l'esplorazione della superficie marziana. La nostra missione è superare i confini dell'ingegneria robotica e approfondire la conoscenza scientifica dello spazio grazie a tecnologie innovative.</p>
+        <p>Siamo un team multidisciplinare di ingegneri, ricercatori e visionari uniti dall'obiettivo di raccogliere dati preziosi per la scienza e per le generazioni a venire. Non progettiamo semplici macchine, ma <strong>strumenti per scoprire, capire e spingersi oltre</strong>.</p>
+        <p>Combinando tecnologia di ultima generazione e ingegneria di precisione, accompagniamo l'umanità verso il futuro dell'esplorazione interplanetaria, con sede operativa a <strong>Villafranca di Verona</strong> e collaborazioni con enti spaziali internazionali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Organigramma ── -->
+<section class="org-section">
+  <div class="container">
+    <span class="section-label">Struttura aziendale</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem);">Organigramma</h2>
+    <div class="org-img-wrap">
+      <img src="organigramma.png" alt="Organigramma aziendale Robomars">
+    </div>
+  </div>
+</section>
+
+<!-- ── Team ── -->
+<section class="team-section">
+  <div class="container">
+    <span class="section-label">Le persone</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 3.5rem;">Il nostro Team</h2>
+
+    <!-- Vertice -->
+    <div class="team-tier">
+      <span class="tier-label">Vertice Aziendale — Direzione Generale</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Presidente</span>
+          <div class="member-name">Erica Luca</div>
+          <p class="member-desc">Partecipa alle riunioni di presentazione dei progetti con l'addetto alle vendite e si occupa della direzione del personale.</p>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="page-header">
-            <h1>CHI SIAMO</h1>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Vicepresidente</span>
+          <div class="member-name">Paolo Ruggeri</div>
+          <p class="member-desc">Vicepresidente e responsabile del personale aziendale.</p>
         </div>
-
-        <div class="section">
-            <h1>Descrizione azienda</h1>
-            <p>Robomars nasce con una visione chiara: progettare e sviluppare rover spaziali all'avanguardia per 
-            l'esplorazione della superficie marziana. La nostra missione è superare i confini dell'ingegneria 
-            robotica e approfondire la conoscenza scientifica dello spazio grazie a tecnologie innovative. 
-            Siamo un team multidisciplinare di ingegneri, ricercatori e visionari uniti dall'obiettivo di 
-            raccogliere dati preziosi per la scienza e per le generazioni a venire. Non progettiamo semplici 
-            macchine, ma strumenti per scoprire, capire e spingersi oltre. Combinando tecnologia di ultima 
-            generazione e ingegneria di precisione, accompagniamo l'umanità verso il futuro dell'esplorazione 
-            interplanetaria.</p>
-        </div>
-
-        <div class="section">
-            <h1>Organigramma</h1>
-            <div class="organigramma-container">
-                <img id="organigramma" src="organigramma.png" alt="Organigramma Aziendale"/>
-            </div>
-
-            <h2>VERTICE AZIENDALE</h2>
-            <h3>Direzione generale</h3>
-            <li><b>PRESIDENTE: ERICA LUCA</b><br>
-                Presidente dell'azienda, che partecipa alle riunioni di presentazione dei
-                progetti con l'addetto alle vendite e si occupa della direzione del personale.</li>
-            <li><b>VICEPRESIDENTE: PAOLO RUGGERI</b><br>
-                Vicepresidente dell'azienda, responsabile del personale.</li>
-
-            <h2>UNITÀ DI LINEA</h2>    
-            <h3>Segreteria</h3>
-            <li><b>SEGRETARIA: PAOLA SAVIANO</b><br>
-                Segretaria, si occupa dell'organizzazione dell'agenda dei direttori e del
-                venditore e della gestione della clientela pre e post-vendita.</li>
-
-            <h3>Direzione amministrativa e ufficio personale</h3>
-            <li><b>RESPONSABILE AMMINISTRATIVO: SAMANTHA GRAZIOLI</b><br>
-                Responsabile amministrativo, incaricato di svolgere le funzioni di contabilità 
-                e supervisionare le attività finanziarie dell'azienda.</li>
-            <li><b>RESPONSABILE DEL PERSONALE: PAOLO RUGGERI</b><br>
-                Responsabile del personale, che si occupa della gestione delle assunzioni,
-                delle paghe e del rapporto con i dipendenti (ferie, permessi).</li>
-
-            <h3>Acquisti</h3>
-            <li><b>DIRETTRICE ACQUISTI: SAMANTHA GRAZIOLI</b><br>
-                Direttrice acquisti, responsabile degli acquisti materiali e del controllo della
-                loro sistemazione e dell'inventario.</li>
-
-            <h3>Marketing/Vendite</h3>
-            <li><b>DIRETTORE VENDITE: ALESSANDRO BONUZZI</b><br>
-                Direttore vendite, responsabile delle ricerche di mercato, del
-                coordinamento delle attività di vendita e di promozione e pubblicità.</li>
-            <li><b>ADDETTE ALLE VENDITE: DESIRÈ CARBONE, ERICA LUCA</b><br>
-                Addette alle vendite, che si occupano di presentare il prodotto agli
-                acquirenti.</li>
-
-            <h3>Ricerca e sviluppo</h3>
-            <li><b>RICERCATORI: ALESSANDRO CAVICCHIOLI, GIORGIA MASETTI, DENIS ERMICIOI</b><br>
-                Ricercatori, responsabili della ricerca e dell'innovazione tecnologica per il
-                miglioramento e lo sviluppo dei prodotti e dei processi di produzione
-                dell'azienda.</li>
-
-            <h3>Progettazione e produzione</h3>
-            <li><b>PROGETTISTI HARDWARE (INGEGNERI HARDWARE): ROBERT BUSUIOC, EMILY SCARPITTA, ALESSANDRO CAVICCHIOLI</b><br>
-                Progettisti hardware, che operano nel campo della progettazione delle
-                componenti hardware (fisiche) del progetto su cui lavora l'azienda.<br>
-                <b>Capo area: ALESSANDRO CAVICCHIOLI</b></li>
-            <li><b>PROGETTISTI SOFTWARE (INGEGNERI SOFTWARE): GIORGIA MASETTI, ANNA GIULIA ZERBINI, MATTIA GRAGNANI</b><br>
-                Progettisti software, che operano nel campo della progettazione delle
-                componenti software del prodotto proposto dall'azienda.<br>
-                <b>Capo area: GIORGIA MASETTI</b></li>
-            <li><b>PROGRAMMATORI: SOFIA CRESTALE, CHIARA BORTOLOTTI, DENIS ERMICIOI</b><br>
-                Programmatori, responsabili dello sviluppo dei software progettati dagli
-                ingegneri per la realizzazione concreta del progetto.<br>
-                <b>Capo area: DENIS ERMICIOI</b></li>
-        </div>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>Azienda Robomars © 2026 - Esplorando il futuro dell'umanità</p>
-    </footer>
+    <!-- Unità di linea -->
+    <div class="team-tier">
+      <span class="tier-label">Segreteria</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Segretaria</span>
+          <div class="member-name">Paola Saviano</div>
+          <p class="member-desc">Organizzazione dell'agenda dei direttori e del venditore, gestione della clientela pre e post-vendita.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Direzione Amministrativa & Ufficio Personale</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Responsabile Amministrativo & Acquisti</span>
+          <div class="member-name">Samantha Grazioli</div>
+          <p class="member-desc">Contabilità, supervisione finanziaria, gestione acquisti materiali e inventario.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Responsabile del Personale</span>
+          <div class="member-name">Paolo Ruggeri</div>
+          <p class="member-desc">Gestione delle assunzioni, delle paghe e del rapporto con i dipendenti.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Marketing & Vendite</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Direttore Vendite</span>
+          <div class="member-name">Alessandro Bonuzzi</div>
+          <p class="member-desc">Ricerche di mercato, coordinamento delle attività di vendita, promozione e pubblicità.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Addetta alle Vendite</span>
+          <div class="member-name">Desirè Carbone</div>
+          <p class="member-desc">Presentazione del prodotto agli acquirenti e gestione delle trattative commerciali.</p>
+        </div>
+        <div class="member-card fade-up delay-2">
+          <span class="member-role">Addetta alle Vendite</span>
+          <div class="member-name">Erica Luca</div>
+          <p class="member-desc">Presentazione del prodotto agli acquirenti e gestione delle trattative commerciali.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Ricerca & Sviluppo</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Ricercatore</span>
+          <div class="member-name">Alessandro Cavicchioli</div>
+          <p class="member-desc">Ricerca e innovazione tecnologica per lo sviluppo dei prodotti e dei processi di produzione.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Ricercatrice</span>
+          <div class="member-name">Giorgia Masetti</div>
+          <p class="member-desc">Ricerca e innovazione tecnologica per lo sviluppo dei prodotti e dei processi di produzione.</p>
+        </div>
+        <div class="member-card fade-up delay-2">
+          <span class="member-role">Ricercatore</span>
+          <div class="member-name">Denis Ermicioi</div>
+          <p class="member-desc">Ricerca e innovazione tecnologica per lo sviluppo dei prodotti e dei processi di produzione.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Progettazione Hardware</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Ingegnere Hardware · Capo Area</span>
+          <div class="member-name">Alessandro Cavicchioli</div>
+          <p class="member-desc">Progettazione delle componenti hardware fisiche del rover.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Ingegnere Hardware</span>
+          <div class="member-name">Robert Busuioc</div>
+          <p class="member-desc">Progettazione delle componenti hardware fisiche del rover.</p>
+        </div>
+        <div class="member-card fade-up delay-2">
+          <span class="member-role">Ingegnere Hardware</span>
+          <div class="member-name">Emily Scarpitta</div>
+          <p class="member-desc">Progettazione delle componenti hardware fisiche del rover.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Progettazione Software</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Ingegnere Software · Capo Area</span>
+          <div class="member-name">Giorgia Masetti</div>
+          <p class="member-desc">Progettazione delle componenti software del rover, architettura dei sistemi.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Ingegnere Software</span>
+          <div class="member-name">Anna Giulia Zerbini</div>
+          <p class="member-desc">Progettazione delle componenti software del rover.</p>
+        </div>
+        <div class="member-card fade-up delay-2">
+          <span class="member-role">Ingegnere Software</span>
+          <div class="member-name">Mattia Gragnani</div>
+          <p class="member-desc">Progettazione delle componenti software del rover.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-tier">
+      <span class="tier-label">Programmazione</span>
+      <div class="team-grid">
+        <div class="member-card fade-up">
+          <span class="member-role">Programmatore · Capo Area</span>
+          <div class="member-name">Denis Ermicioi</div>
+          <p class="member-desc">Sviluppo concreto dei software progettati dagli ingegneri per la realizzazione del rover.</p>
+        </div>
+        <div class="member-card fade-up delay-1">
+          <span class="member-role">Programmatrice</span>
+          <div class="member-name">Sofia Crestale</div>
+          <p class="member-desc">Sviluppo dei software per il controllo e la navigazione del rover.</p>
+        </div>
+        <div class="member-card fade-up delay-2">
+          <span class="member-role">Programmatrice</span>
+          <div class="member-name">Chiara Bortolotti</div>
+          <p class="member-desc">Sviluppo dei software per il controllo e la navigazione del rover.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">🚀 ROBOMARS</span>
+      <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

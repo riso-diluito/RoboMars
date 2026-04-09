@@ -1,437 +1,525 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROBOMARS - Rover Spaziali</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Robomars — Rover spaziali di nuova generazione per l'esplorazione di Marte. Tecnologia, IA e ingegneria di precisione.">
+  <title>ROBOMARS — Rover Spaziali</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 70% at 70% 50%, rgba(178,34,34,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(178,34,34,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            color: white;
-        }
+    .hero-text { position: relative; z-index: 1; }
 
-        /* Menu orizzontale moderno */
-        nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid rgb(178, 34, 34);
-        }
+    .hero-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--red);
+    }
 
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 0.3em;
+    }
+    .hero h1 .accent { color: var(--red); }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: rgb(178, 34, 34);
-            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
-            letter-spacing: 3px;
-        }
+    .hero-tagline {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--white-mute);
+      margin: 1.2rem 0 2rem;
+      font-family: 'Rajdhani', sans-serif;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    .hero p {
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: rgb(178, 34, 34);
-            transition: width 0.3s;
-        }
+    /* Hero right — big decorative number + stats */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.5rem;
+    }
+    .big-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(6rem, 12vw, 11rem);
+      font-weight: 900;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(178,34,34,0.25);
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -0.02em;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .stat {
+      padding: 1.5rem 1rem;
+      background: var(--surface);
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--red);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--white-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
 
-        nav a:hover {
-            color: rgb(178, 34, 34);
-        }
+    /* ── Presentation / About ── */
+    .about {
+      padding: 7rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-left h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .about-left h2 em { color: var(--red); font-style: normal; }
+    .about-right p { margin-bottom: 1.2rem; }
+    .about-right p:last-child { margin-bottom: 0; }
 
-        nav a:hover::after {
-            width: 100%;
-        }
+    .about-values {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .value-item {
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      border-left: 2px solid var(--red);
+      transition: background 0.2s;
+    }
+    .value-item:hover { background: var(--red-light); }
+    .value-item strong {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .value-item p { font-size: 0.9rem; margin: 0; }
 
-        /* Hero Section */
-        .hero {
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: url('rover_immagine.jpg') center/cover;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ── Video Section ── */
+    .video-section {
+      padding: 5rem 0 7rem;
+      border-top: 1px solid var(--border);
+    }
+    .video-wrapper {
+      margin-top: 2.5rem;
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: var(--surface2);
+      position: relative;
+    }
+    .video-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(178,34,34,0.08) 0%, transparent 70%);
+    }
+    /* Swap the placeholder with an actual <video> or <iframe> when ready */
+    /* <video controls poster="cover.jpg"><source src="video.mp4" type="video/mp4"></video> */
+    /* <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>         */
+    .video-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--red-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .video-icon svg { width: 28px; height: 28px; fill: var(--red); }
+    .video-caption {
+      font-size: 0.85rem;
+      color: var(--white-mute);
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+    /* When you add the real video, remove .video-placeholder and use this directly: */
+    .video-wrapper video,
+    .video-wrapper iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: none;
+    }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(26, 26, 26, 0.75));
-        }
+    /* ── Features ── */
+    .features { padding: 7rem 0; border-top: 1px solid var(--border); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .feature-card:hover {
+      border-color: var(--red-dim);
+      box-shadow: 0 0 28px var(--red-glow);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      background: var(--red-glow);
+      border: 1px solid var(--red-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+    .feature-card h3 {
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.08em;
+    }
+    .feature-card p { font-size: 0.92rem; }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 2rem;
-        }
+    /* ── Collaborazioni ── */
+    .collab { padding: 5rem 0; border-top: 1px solid var(--border); }
+    .collab-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .collab-item {
+      flex: 1; min-width: 160px;
+      height: 80px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+      transition: border-color 0.25s;
+    }
+    .collab-item:hover { border-color: var(--red-dim); }
+    .collab-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(60%); transition: filter 0.25s; }
+    .collab-item:hover img { filter: grayscale(0%); }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: white;
-            text-shadow: 0 0 30px rgba(178, 34, 34, 0.7);
-            animation: glow 2s ease-in-out infinite alternate;
-            letter-spacing: 5px;
-        }
+    /* ── Contatti ── */
+    .contacts { padding: 5rem 0; border-top: 1px solid var(--border); }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .contact-item {
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-item:hover { border-color: var(--red-dim); background: var(--red-light); }
+    .contact-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .contact-item span { font-size: 0.95rem; color: var(--white-dim); }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(178, 34, 34, 0.5), 0 0 30px rgba(178, 34, 34, 0.3); }
-            to { text-shadow: 0 0 40px rgba(178, 34, 34, 1), 0 0 60px rgba(178, 34, 34, 0.5); }
-        }
-
-        .hero-tagline {
-            font-size: 1.8rem;
-            font-style: italic;
-            color: rgb(178, 34, 34);
-            margin-bottom: 2rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: rgb(178, 34, 34);
-            color: white;
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(178, 34, 34, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 2px solid rgb(178, 34, 34);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(178, 34, 34, 0.6);
-            background: transparent;
-            color: rgb(178, 34, 34);
-        }
-
-        /* Features Grid */
-        .features {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgb(178, 34, 34);
-            box-shadow: 0 20px 40px rgba(178, 34, 34, 0.3);
-            background: linear-gradient(135deg, rgba(178, 34, 34, 0.1) 0%, rgba(10, 10, 10, 0.95) 100%);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: rgb(178, 34, 34);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .feature-card p {
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* About Section */
-        .about-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
-            border: 2px solid rgba(178, 34, 34, 0.3);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .about-section h2 {
-            color: rgb(178, 34, 34);
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .about-section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: justify;
-        }
-
-        /* Collaborazioni */
-        .collaborazioni {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-top: 3px solid rgb(178, 34, 34);
-            border-bottom: 3px solid rgb(178, 34, 34);
-        }
-
-        .collaborazioni h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: rgb(178, 34, 34);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .collab-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-        }
-
-        .collab-grid img {
-            width: 150px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 3px solid rgba(178, 34, 34, 0.3);
-            transition: all 0.3s;
-            filter: grayscale(50%);
-        }
-
-        .collab-grid img:hover {
-            transform: scale(1.1);
-            border-color: rgb(178, 34, 34);
-            box-shadow: 0 10px 30px rgba(178, 34, 34, 0.5);
-            filter: grayscale(0%);
-        }
-
-        /* Contatti */
-        .contatti {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, rgba(178, 34, 34, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 2px solid rgba(178, 34, 34, 0.3);
-        }
-
-        .contatti h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: rgb(178, 34, 34);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .contatti-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            text-align: left;
-        }
-
-        .contatto-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            border: 1px solid rgba(178, 34, 34, 0.2);
-            transition: all 0.3s;
-        }
-
-        .contatto-item:hover {
-            border-color: rgb(178, 34, 34);
-            background: rgba(178, 34, 34, 0.1);
-            transform: translateX(5px);
-        }
-
-        .contatto-icon {
-            font-size: 1.5rem;
-        }
-
-        .contatto-item span {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 3px solid rgb(178, 34, 34);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .features { grid-template-columns: 1fr; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            nav .container { flex-direction: column; gap: 1rem; }
-            .logo { font-size: 1.5rem; }
-        }
-    </style>
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 4rem 0; }
+      .hero-visual { align-items: flex-start; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .contacts-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+      .about-values { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <div class="container">
-            <div class="logo">🚀 ROBOMARS</div>
-            <ul>
-                <li><a href="robomarsAssemblaggio.html">HOME</a></li>
-                <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
-                <li><a href="listinoprezzi.html">Servizi</a></li>
-                <li><a href="BusinessPlan.html">Business Plan</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>ROBOMARS</h1>
-            <p class="hero-tagline">"Dove finisce la Terra, inizia la nostra missione."</p>
-            <p>La nostra azienda è specializzata nella progettazione di Rover spaziali dotati di tecnologia di ultima generazione e all'avanguardia. Se sei interessato, i nostri dipendenti saranno felici di accoglierti in sede e soddisfare tutte le tue domande. Ti verrà mostrato il funzionamento e la tecnologia dei nostri prodotti.</p>
-            <a href="listinoprezzi.html" class="cta-button">Scopri i nostri Rover</a>
-        </div>
-    </section>
+<!-- ── Nav ── -->
+<nav>
+  <div class="container">
+    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="robomars1.html" class="active">Home</a></li>
+      <li><a href="paginaChiSiamo.html">Chi Siamo</a></li>
+      <li><a href="listinoprezzi.html">Servizi</a></li>
+      <li><a href="BusinessPlan.html">Business Plan</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3>Intelligenza Artificiale</h3>
-            <p>Sistemi di navigazione autonoma con AI avanzata per l'analisi in tempo reale del terreno marziano.</p>
+<!-- ── Hero ── -->
+<section class="container">
+  <div class="hero">
+    <div class="hero-text fade-up">
+      <p class="hero-eyebrow">Esplorazione Marziana · Dal 2026</p>
+      <h1>ROBO<br><span class="accent">MARS</span></h1>
+      <p class="hero-tagline">"Dove finisce la Terra, inizia la nostra missione."</p>
+      <p>Progettiamo rover spaziali di nuova generazione per l'esplorazione della superficie marziana. Tecnologia avanzata, intelligenza artificiale e ingegneria di precisione al servizio della scienza.</p>
+      <div class="hero-cta">
+        <a href="listinoprezzi.html" class="btn btn-primary">Scopri i Rover</a>
+        <a href="paginaChiSiamo.html" class="btn btn-outline">Chi Siamo</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-up delay-2">
+      <div class="big-number" aria-hidden="true">2026</div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-value">4WD</span>
+          <span class="stat-label">Trazione integrale</span>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔬</div>
-            <h3>Ricerca Scientifica</h3>
-            <p>Strumenti all'avanguardia per l'analisi geologica, atmosferica e la ricerca di tracce di vita.</p>
+        <div class="stat">
+          <span class="stat-value">AI</span>
+          <span class="stat-label">Navigazione autonoma</span>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3>Tecnologia Avanzata</h3>
-            <p>Componenti hardware resistenti alle condizioni estreme e sistemi energetici ottimizzati.</p>
+        <div class="stat">
+          <span class="stat-value">365</span>
+          <span class="stat-label">Giorni missione</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- About Us -->
-    <section class="about-section">
-        <h2>ABOUT US</h2>
-        <p>La nostra missione è superare i confini dell'ingegneria robotica e approfondire la conoscenza scientifica dello spazio grazie a tecnologie innovative. Non progettiamo semplici macchine, ma strumenti per scoprire, capire e spingersi oltre. Combinando tecnologia di ultima generazione e ingegneria di precisione, accompagniamo l'umanità verso il futuro dell'esplorazione interplanetaria.</p>
-    </section>
-
-    <!-- Collaborazioni -->
-    <section class="collaborazioni">
-        <h2>Le nostre collaborazioni</h2>
-        <div class="collab-grid">
-            <img src="https://www.asi.it/wp-content/uploads/2024/05/IAC-2024-1-500x281.jpg" alt="Collaborazione 1">
-            <img src="https://notizie.itis.biella.it/wp-content/uploads/2022/05/rosita.jpg" alt="Collaborazione 2">
-            <img src="https://tse2.mm.bing.net/th?id=OIP.nVJyfB_Ikv9R0OCbkzSdIwHaF7&pid=Api&P=0&h=180" alt="Collaborazione 3">
-            <img src="https://tse3.mm.bing.net/th?id=OIP.4Ajvfuf_ai0b-GC-6KQvlQHaHa&pid=Api&P=0&h=180" alt="Collaborazione 4">
+<!-- ── Presentazione Azienda ── -->
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left fade-up">
+        <span class="section-label">Chi siamo</span>
+        <h2>Oltre i confini<br>dell'<em>ingegneria</em></h2>
+        <div class="divider"></div>
+        <div class="about-values">
+          <div class="value-item">
+            <strong>Innovazione</strong>
+            <p>Tecnologie all'avanguardia in ogni componente</p>
+          </div>
+          <div class="value-item">
+            <strong>Precisione</strong>
+            <p>Ingegneria di altissima qualità per ambienti estremi</p>
+          </div>
+          <div class="value-item">
+            <strong>Autonomia</strong>
+            <p>IA per decisioni in tempo reale sul campo</p>
+          </div>
+          <div class="value-item">
+            <strong>Sostenibilità</strong>
+            <p>Sistemi a basso consumo, materiali ecologici</p>
+          </div>
         </div>
-
-        <div class="contatti">
-            <h2>DOVE CI TROVIAMO E CONTATTI</h2>
-            <div class="contatti-info">
-                <div class="contatto-item">
-                    <span class="contatto-icon">📍</span>
-                    <span>Via Magenta 7, Villafranca di Verona</span>
-                </div>
-                <div class="contatto-item">
-                    <span class="contatto-icon">📞</span>
-                    <span>+(39) 3474325xxx</span>
-                </div>
-                <div class="contatto-item">
-                    <span class="contatto-icon">✉️</span>
-                    <span>robomars.ca@gmail.com</span>
-                </div>
-            </div>
+      </div>
+      <div class="about-right fade-up delay-2">
+        <p>Robomars nasce con una visione chiara: <strong>progettare e sviluppare rover spaziali di nuova generazione</strong> per l'esplorazione della superficie marziana. Siamo un team multidisciplinare di ingegneri, ricercatori e visionari, uniti dalla passione per lo spazio e dalla convinzione che il futuro dell'umanità passi attraverso la conoscenza del cosmo.</p>
+        <p>Non progettiamo semplici macchine. Costruiamo strumenti per scoprire, capire e spingersi oltre. I nostri rover integrano sistemi di intelligenza artificiale per la navigazione autonoma, sensori avanzati per l'analisi geologica e atmosferica, e strutture a quattro ruote motrici capaci di affrontare il terreno impervio di Marte.</p>
+        <p>Con sede operativa a <strong>Villafranca di Verona</strong>, collaboriamo con agenzie spaziali, istituti di ricerca e aziende tecnologiche di livello internazionale, contribuendo all'espansione della conoscenza scientifica sull'Universo e all'esplorazione interplanetaria.</p>
+        <div style="margin-top: 2rem;">
+          <a href="paginaChiSiamo.html" class="btn btn-outline">Scopri il team →</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <p>Azienda Robomars © 2026 - Esplorando il futuro dell'umanità</p>
-    </footer>
+<!-- ── Video ── -->
+<section class="video-section">
+  <div class="container">
+    <span class="section-label">Il progetto in azione</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 0.5rem;">Guarda il nostro Rover</h2>
+    <p style="max-width: 540px;">Un'anteprima esclusiva del nostro rover ROSITA in fase di test, tra tecnologia, ingegneria e visione spaziale.</p>
+
+    <div class="video-wrapper">
+      <!--
+        ISTRUZIONI PER INSERIRE IL VIDEO:
+        ────────────────────────────────
+        Opzione A — File locale (mp4):
+          <video controls poster="cover.jpg">
+            <source src="video.mp4" type="video/mp4">
+          </video>
+
+        Opzione B — YouTube:
+          <iframe src="https://www.youtube.com/embed/TUO_ID_VIDEO"
+                  allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope">
+          </iframe>
+
+        Rimuovi il div .video-placeholder qui sotto quando inserisci il video reale.
+      -->
+      <div class="video-placeholder">
+        <div class="video-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p class="video-caption">— Video in arrivo —</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section class="features">
+  <div class="container">
+    <span class="section-label">Tecnologia</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem);">Cosa ci distingue</h2>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🤖</div>
+        <h3>Intelligenza Artificiale</h3>
+        <p>Sistemi di navigazione autonoma con AI avanzata per l'analisi in tempo reale del terreno marziano e l'ottimizzazione energetica.</p>
+      </div>
+      <div class="feature-card fade-up delay-1">
+        <div class="feature-icon">🔬</div>
+        <h3>Ricerca Scientifica</h3>
+        <p>Strumenti integrati per l'analisi geologica e atmosferica, la ricerca di tracce di vita e la raccolta dati ad alta precisione.</p>
+      </div>
+      <div class="feature-card fade-up delay-2">
+        <div class="feature-icon">⚡</div>
+        <h3>Tecnologia Avanzata</h3>
+        <p>Componenti hardware resistenti alle condizioni estreme di Marte, sistemi energetici a pannelli solari e comunicazione criptata.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Collaborazioni ── -->
+<section class="collab">
+  <div class="container">
+    <span class="section-label">Partnership</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem);">Le nostre collaborazioni</h2>
+    <div class="collab-grid">
+      <div class="collab-item">
+        <img src="https://www.asi.it/wp-content/uploads/2024/05/IAC-2024-1-500x281.jpg" alt="Agenzia Spaziale Italiana">
+      </div>
+      <div class="collab-item">
+        <img src="https://notizie.itis.biella.it/wp-content/uploads/2022/05/rosita.jpg" alt="Progetto ROSITA">
+      </div>
+      <div class="collab-item">
+        <img src="https://tse2.mm.bing.net/th?id=OIP.nVJyfB_Ikv9R0OCbkzSdIwHaF7&pid=Api&P=0&h=180" alt="Partner 3">
+      </div>
+      <div class="collab-item">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.4Ajvfuf_ai0b-GC-6KQvlQHaHa&pid=Api&P=0&h=180" alt="Partner 4">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contatti ── -->
+<section class="contacts">
+  <div class="container">
+    <span class="section-label">Dove siamo</span>
+    <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem);">Contatti</h2>
+    <div class="contacts-grid">
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <span>Via Magenta 7, Villafranca di Verona</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <span>+(39) 347 432 5xxx</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <span>robomars.ca@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">🚀 ROBOMARS</span>
+      <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
