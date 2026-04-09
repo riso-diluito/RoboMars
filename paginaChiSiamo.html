@@ -7,89 +7,46 @@
   <title>Chi Siamo — ROBOMARS</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Page hero ── */
-    .page-hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
-    .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
-    .page-hero h1 em { color: var(--red); font-style: normal; }
-
-    /* ── Descrizione ── */
     .desc-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
-    .desc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 5rem;
-      align-items: start;
-    }
+    .desc-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
     .desc-left h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; }
-    .desc-left h2 em { color: var(--red); font-style: normal; }
     .desc-right p { margin-bottom: 1.1rem; }
     .desc-right p:last-child { margin-bottom: 0; }
 
-    /* ── Organigramma ── */
     .org-section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
-    .org-img-wrap {
-      margin-top: 2.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      background: var(--surface);
-    }
-    .org-img-wrap img {
-      width: 100%;
-      display: block;
-      transition: transform 0.4s;
-    }
-    .org-img-wrap:hover img { transform: scale(1.01); }
 
-    /* ── Team ── */
     .team-section { padding: 6rem 0; }
-
     .team-tier { margin-bottom: 4rem; }
     .tier-label {
       font-family: 'Orbitron', sans-serif;
       font-size: 0.68rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--red);
-      border-left: 2px solid var(--red);
+      color: rgba(255,220,220,0.7);
+      border-left: 2px solid rgba(255,255,255,0.4);
       padding-left: 0.8rem;
       margin-bottom: 1.5rem;
       display: block;
     }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
-    }
-
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
     .member-card {
-      background: var(--surface);
+      background: rgba(0,0,0,0.25);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 1.5rem;
       transition: border-color 0.25s, box-shadow 0.25s;
     }
-    .member-card:hover {
-      border-color: var(--red-dim);
-      box-shadow: 0 0 24px var(--red-glow);
-    }
+    .member-card:hover { border-color: var(--border-strong); box-shadow: 0 0 24px rgba(0,0,0,0.3); }
     .member-role {
       font-family: 'Orbitron', sans-serif;
       font-size: 0.6rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--red);
+      color: rgba(255,220,220,0.65);
       display: block;
       margin-bottom: 0.4rem;
     }
-    .member-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
+    .member-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); margin-bottom: 0.6rem; }
     .member-desc { font-size: 0.88rem; line-height: 1.6; }
 
     @media (max-width: 768px) {
@@ -102,7 +59,10 @@
 
 <nav>
   <div class="container">
-    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <a href="robomars1.html" class="logo">
+      <img src="logo.png" alt="Robomars logo">
+      ROBOMARS
+    </a>
     <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
@@ -112,26 +72,25 @@
       <li><a href="listinoprezzi.html">Servizi</a></li>
       <li><a href="BusinessPlan.html">Business Plan</a></li>
     </ul>
+    <div></div>
   </div>
 </nav>
 
-<!-- ── Page Hero ── -->
 <div class="container">
   <div class="page-hero fade-up">
     <span class="section-label">L'azienda</span>
-    <h1>Chi <em>Siamo</em></h1>
+    <h1>Chi Siamo</h1>
     <div class="divider"></div>
     <p style="max-width: 600px;">Un team multidisciplinare di ingegneri, ricercatori e visionari uniti dalla passione per l'esplorazione spaziale.</p>
   </div>
 </div>
 
-<!-- ── Descrizione Azienda ── -->
 <section class="desc-section">
   <div class="container">
     <div class="desc-grid">
       <div class="desc-left fade-up">
         <span class="section-label">La nostra storia</span>
-        <h2>Una <em>visione</em> chiara per il futuro</h2>
+        <h2>Una visione chiara per il futuro</h2>
         <div class="divider"></div>
       </div>
       <div class="desc-right fade-up delay-1">
@@ -143,24 +102,19 @@
   </div>
 </section>
 
-<!-- ── Organigramma ── -->
 <section class="org-section">
   <div class="container">
     <span class="section-label">Struttura aziendale</span>
     <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem);">Organigramma</h2>
-    <div class="org-img-wrap">
-      <img src="organigramma.png" alt="Organigramma aziendale Robomars">
-    </div>
+    <!-- Foto organigramma rimossa come richiesto -->
   </div>
 </section>
 
-<!-- ── Team ── -->
 <section class="team-section">
   <div class="container">
     <span class="section-label">Le persone</span>
     <h2 style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 3.5rem;">Il nostro Team</h2>
 
-    <!-- Vertice -->
     <div class="team-tier">
       <span class="tier-label">Vertice Aziendale — Direzione Generale</span>
       <div class="team-grid">
@@ -177,7 +131,6 @@
       </div>
     </div>
 
-    <!-- Unità di linea -->
     <div class="team-tier">
       <span class="tier-label">Segreteria</span>
       <div class="team-grid">
@@ -316,7 +269,10 @@
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-logo">🚀 ROBOMARS</span>
+      <span class="footer-logo">
+        <img src="logo.png" alt="Robomars">
+        ROBOMARS
+      </span>
       <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
     </div>
   </div>

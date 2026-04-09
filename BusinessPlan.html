@@ -7,7 +7,6 @@
   <title>Business Plan — ROBOMARS</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Two-column layout ── */
     .bp-layout {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -15,23 +14,17 @@
       padding: 4rem 0 6rem;
       align-items: start;
     }
-
-    /* ── Sidebar ── */
-    .bp-sidebar {
-      position: sticky;
-      top: calc(var(--nav-h) + 1.5rem);
-    }
+    .bp-sidebar { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
     .sidebar-label {
       font-family: 'Orbitron', sans-serif;
       font-size: 0.62rem;
       letter-spacing: 0.2em;
-      color: var(--red);
+      color: rgba(255,220,220,0.65);
       text-transform: uppercase;
       margin-bottom: 1rem;
       display: block;
     }
     .sidebar-nav { list-style: none; }
-    .sidebar-nav li { margin: 0; }
     .sidebar-nav a {
       display: block;
       padding: 0.6rem 0.8rem;
@@ -44,135 +37,68 @@
       border-left: 1px solid var(--border);
       transition: all 0.2s;
     }
-    .sidebar-nav a:hover {
-      color: var(--white);
-      border-left-color: var(--red);
-      padding-left: 1.2rem;
-    }
-    .sidebar-nav li.active a {
-      color: var(--red);
-      border-left-color: var(--red);
-    }
+    .sidebar-nav a:hover { color: var(--white); border-left-color: rgba(255,255,255,0.5); padding-left: 1.2rem; }
+    .sidebar-nav li.active a { color: var(--white); border-left-color: rgba(255,255,255,0.6); }
 
-    /* ── BP Sections ── */
-    .bp-section {
-      margin-bottom: 4rem;
-      scroll-margin-top: calc(var(--nav-h) + 2rem);
-    }
+    .bp-section { margin-bottom: 4rem; scroll-margin-top: calc(var(--nav-h) + 2rem); }
     .bp-section h2 {
       font-size: clamp(1.2rem, 2.5vw, 1.7rem);
       color: var(--white);
       margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
+      display: flex; align-items: center; gap: 0.8rem;
     }
     .bp-section h2::before {
       content: '';
-      display: inline-block;
-      width: 3px;
-      height: 1.4em;
-      background: var(--red);
-      border-radius: 2px;
-      flex-shrink: 0;
+      display: inline-block; width: 3px; height: 1.4em;
+      background: rgba(255,255,255,0.45); border-radius: 2px; flex-shrink: 0;
     }
     .bp-section p { margin-bottom: 1rem; }
     .bp-section p:last-child { margin-bottom: 0; }
 
-    /* ── Ordered list ── */
-    .bp-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 1rem;
-    }
+    .bp-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
     .bp-list li {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 1rem;
       padding: 1rem 1.2rem;
-      background: var(--surface);
+      background: rgba(0,0,0,0.2);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      border-left: 2px solid var(--red-dim);
-      font-size: 0.95rem;
-      color: var(--white-dim);
-      line-height: 1.6;
+      border-left: 2px solid rgba(255,255,255,0.25);
+      font-size: 0.95rem; color: var(--white-dim); line-height: 1.6;
       transition: border-left-color 0.2s, background 0.2s;
     }
-    .bp-list li:hover { border-left-color: var(--red); background: var(--surface2); }
-    .bp-list li .item-num {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.7rem;
-      color: var(--red);
-      font-weight: 700;
-      padding-top: 0.15rem;
-    }
+    .bp-list li:hover { border-left-color: rgba(255,255,255,0.6); background: rgba(0,0,0,0.35); }
+    .bp-list li .item-num { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: rgba(255,220,220,0.7); font-weight: 700; padding-top: 0.15rem; }
     .bp-list li strong { color: var(--white); }
 
-    /* ── Bullet list ── */
-    .bp-bullets {
-      list-style: none;
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+    .bp-bullets { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .bp-bullets li {
-      padding: 0.7rem 1rem;
-      background: var(--surface);
+      padding: 0.7rem 1rem 0.7rem 1.8rem;
+      background: rgba(0,0,0,0.2);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      font-size: 0.92rem;
-      color: var(--white-dim);
-      line-height: 1.6;
+      font-size: 0.92rem; color: var(--white-dim); line-height: 1.6;
       position: relative;
-      padding-left: 1.8rem;
     }
-    .bp-bullets li::before {
-      content: '→';
-      position: absolute;
-      left: 0.6rem;
-      color: var(--red);
-      font-size: 0.8rem;
-    }
+    .bp-bullets li::before { content: '—'; position: absolute; left: 0.6rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; }
 
-    /* ── SWOT Grid ── */
     .swot-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      margin-top: 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; margin-top: 1.5rem;
+      border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
     }
-    .swot-cell {
-      padding: 1.8rem;
-      background: var(--surface);
-    }
-    .swot-cell:hover { background: var(--surface2); }
+    .swot-cell { padding: 1.8rem; background: rgba(0,0,0,0.2); transition: background 0.2s; }
+    .swot-cell:hover { background: rgba(0,0,0,0.35); }
     .swot-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      display: block;
+      font-family: 'Orbitron', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.8rem; display: block;
     }
-    .swot-cell.s .swot-title { color: #4ade80; }
-    .swot-cell.w .swot-title { color: #f87171; }
-    .swot-cell.o .swot-title { color: #60a5fa; }
-    .swot-cell.t .swot-title { color: #fbbf24; }
+    .swot-cell.s .swot-title { color: rgba(120,255,160,0.85); }
+    .swot-cell.w .swot-title { color: rgba(255,120,120,0.85); }
+    .swot-cell.o .swot-title { color: rgba(120,180,255,0.85); }
+    .swot-cell.t .swot-title { color: rgba(255,210,80,0.85); }
     .swot-cell p { font-size: 0.9rem; }
 
-    /* ── Divider between sections ── */
-    .bp-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 3.5rem 0;
-    }
+    .bp-divider { height: 1px; background: var(--border); margin: 3.5rem 0; }
 
     @media (max-width: 860px) {
       .bp-layout { grid-template-columns: 1fr; }
@@ -185,7 +111,10 @@
 
 <nav>
   <div class="container">
-    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <a href="robomars1.html" class="logo">
+      <img src="logo.png" alt="Robomars logo">
+      ROBOMARS
+    </a>
     <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
@@ -195,20 +124,19 @@
       <li><a href="listinoprezzi.html">Servizi</a></li>
       <li><a href="BusinessPlan.html" class="active">Business Plan</a></li>
     </ul>
+    <div></div>
   </div>
 </nav>
 
 <div class="container">
   <div class="page-hero fade-up">
     <span class="section-label">Strategia aziendale</span>
-    <h1>Business <em>Plan</em></h1>
+    <h1>Business Plan</h1>
     <div class="divider"></div>
     <p style="max-width: 560px;">Analisi strategica, competenze, ricerca e sviluppo del progetto Robomars per l'esplorazione marziana.</p>
   </div>
 
   <div class="bp-layout">
-
-    <!-- Sidebar -->
     <aside class="bp-sidebar">
       <span class="sidebar-label">Indice</span>
       <ul class="sidebar-nav" id="sidebar-nav">
@@ -223,7 +151,6 @@
       </ul>
     </aside>
 
-    <!-- Content -->
     <main>
 
       <div class="bp-section" id="descrizione">
@@ -237,7 +164,7 @@
       <div class="bp-section" id="businessidea">
         <h2>Business idea</h2>
         <p>L'idea centrale di Robomars è un rover avanzato progettato per muoversi sul terreno impervio di Marte, raccogliendo dati scientifici per l'analisi e la ricerca. L'obiettivo è promuovere, sviluppare e diffondere la ricerca spaziale, contribuendo all'espansione della conoscenza scientifica sull'Universo.</p>
-        <p>Il target di mercato include agenzie spaziali, settori geologici-spaziali e aziende robotiche e informatiche, interessate a tecnologie innovative per l'esplorazione planetaria. Il rover si distingue per un design robusto e agile, con struttura a quattro ruote motrici, sensori avanzati in grado di rilevare tracce di vita e analizzare le condizioni atmosferiche. L'intelligenza artificiale permette la navigazione autonoma, adattandosi ai cambiamenti del terreno e ottimizzando il consumo energetico.</p>
+        <p>Il target di mercato include agenzie spaziali, settori geologici-spaziali e aziende robotiche e informatiche. Il rover si distingue per un design robusto e agile, con struttura a quattro ruote motrici, sensori avanzati in grado di rilevare tracce di vita e analizzare le condizioni atmosferiche. L'intelligenza artificiale permette la navigazione autonoma, adattandosi ai cambiamenti del terreno e ottimizzando il consumo energetico.</p>
       </div>
 
       <div class="bp-divider"></div>
@@ -249,7 +176,7 @@
           <li><strong>Matematica:</strong> calcolo di traiettorie interplanetarie, stima del carburante necessario e ottimizzazione dei percorsi di esplorazione.</li>
           <li><strong>Fisica:</strong> calcolo delle orbite, ottimizzazione del peso dei rover e comprensione delle leggi del movimento in condizioni di bassa gravità.</li>
           <li><strong>Chimica:</strong> analisi della composizione del suolo marziano e identificazione di potenziali risorse naturali.</li>
-          <li><strong>Informatica:</strong> progettazione e programmazione dei comandi, controllo di missione, visione artificiale e sistemi di intelligenza artificiale per l'autonomia operativa.</li>
+          <li><strong>Informatica:</strong> progettazione e programmazione dei comandi, controllo di missione, visione artificiale e sistemi di IA per l'autonomia operativa.</li>
         </ul>
       </div>
 
@@ -312,7 +239,7 @@
 
       <div class="bp-section" id="territoriale">
         <h2>Analisi Territoriale</h2>
-        <p>La scelta di <strong>Villafranca di Verona</strong> come sede operativa offre vantaggi strategici significativi. La località è ben collegata grazie a una rete ferroviaria e stradale efficiente, oltre alla presenza dell'Aeroporto Internazionale Valerio Catullo. L'economia locale è diversificata — agricoltura, logistica, turismo e industria — con una forte presenza di centri di ricerca come le Università di Verona e Padova.</p>
+        <p>La scelta di <strong>Villafranca di Verona</strong> come sede operativa offre vantaggi strategici significativi. La località è ben collegata grazie a una rete ferroviaria e stradale efficiente, oltre alla presenza dell'Aeroporto Internazionale Valerio Catullo. L'economia locale è diversificata con una forte presenza di centri di ricerca come le Università di Verona e Padova.</p>
         <p>I vantaggi principali includono il supporto regionale per l'innovazione aerospaziale e l'accesso a collaborazioni accademiche. Gli aspetti critici da considerare riguardano i costi operativi elevati, i potenziali rischi ambientali e le problematiche legate alla sicurezza delle infrastrutture.</p>
       </div>
 
@@ -325,30 +252,28 @@
       </div>
 
     </main>
-  </div><!-- /bp-layout -->
+  </div>
 </div>
 
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-logo">🚀 ROBOMARS</span>
+      <span class="footer-logo">
+        <img src="logo.png" alt="Robomars">
+        ROBOMARS
+      </span>
       <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
     </div>
   </div>
 </footer>
 
 <script>
-  // Highlight active sidebar link on scroll
   const sections = document.querySelectorAll('.bp-section');
   const links = document.querySelectorAll('.sidebar-nav a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    links.forEach(a => {
-      a.parentElement.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    links.forEach(a => { a.parentElement.classList.toggle('active', a.getAttribute('href') === '#' + current); });
   });
 </script>
 

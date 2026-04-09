@@ -7,18 +7,12 @@
   <title>Servizi & Prezzi — ROBOMARS</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Category tabs ── */
-    .price-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin: 2.5rem 0 3rem;
-    }
+    .price-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 2.5rem 0 3rem; }
     .tab-btn {
       padding: 0.55rem 1.4rem;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: transparent;
+      background: rgba(0,0,0,0.2);
       color: var(--white-dim);
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.88rem;
@@ -28,28 +22,15 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .tab-btn:hover { border-color: var(--red-dim); color: var(--white); }
-    .tab-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+    .tab-btn:hover { border-color: var(--border-strong); color: var(--white); }
+    .tab-btn.active { background: rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.5); color: var(--white); }
 
-    /* ── Price categories ── */
     .price-category { display: none; }
     .price-category.visible { display: block; }
 
-    .cat-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .cat-icon { font-size: 2rem; }
-    .cat-header h2 {
-      font-size: 1.4rem;
-      color: var(--white);
-    }
+    .cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .cat-header h2 { font-size: 1.4rem; color: var(--white); }
 
-    /* ── Price items ── */
     .price-list { display: flex; flex-direction: column; gap: 1px; }
     .price-item {
       display: grid;
@@ -57,58 +38,37 @@
       align-items: start;
       gap: 2rem;
       padding: 1.4rem 1.5rem;
-      background: var(--surface);
+      background: rgba(0,0,0,0.2);
       border-radius: var(--radius);
       transition: background 0.2s, border-left 0.2s;
       border-left: 2px solid transparent;
     }
-    .price-item:hover {
-      background: var(--surface2);
-      border-left-color: var(--red);
-    }
-    .price-item-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
+    .price-item:hover { background: rgba(0,0,0,0.35); border-left-color: rgba(255,255,255,0.4); }
+    .price-item-name { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; color: var(--white); margin-bottom: 0.25rem; }
     .price-item-desc { font-size: 0.85rem; color: var(--white-mute); line-height: 1.5; }
     .price-value {
       font-family: 'Orbitron', sans-serif;
       font-size: 0.88rem;
-      color: var(--red);
+      color: var(--white);
       white-space: nowrap;
       text-align: right;
       font-weight: 700;
     }
-    .price-value small {
-      display: block;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
-      color: var(--white-mute);
-      font-weight: 400;
-      margin-top: 0.15rem;
-    }
+    .price-value small { display: block; font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; color: var(--white-mute); font-weight: 400; margin-top: 0.15rem; }
 
-    /* ── Note ── */
     .price-note {
       margin-top: 2.5rem;
       padding: 1.2rem 1.5rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      border-left: 2px solid var(--red-dim);
-      background: var(--red-light);
+      border-left: 2px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.2);
     }
-    .price-note p { font-size: 0.85rem; color: var(--white-mute); }
-    .price-note strong { color: var(--white-dim); }
+    .price-note p { font-size: 0.85rem; }
 
-    /* Layout */
-    .prices-wrapper {
-      padding: 5rem 0;
-    }
+    .prices-wrapper { padding: 5rem 0; }
     .prices-main {
-      background: var(--surface);
+      background: rgba(0,0,0,0.2);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
@@ -124,7 +84,10 @@
 
 <nav>
   <div class="container">
-    <a href="robomars1.html" class="logo">🚀 ROBO<span>MARS</span></a>
+    <a href="robomars1.html" class="logo">
+      <img src="logo.png" alt="Robomars logo">
+      ROBOMARS
+    </a>
     <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
@@ -134,13 +97,14 @@
       <li><a href="listinoprezzi.html" class="active">Servizi</a></li>
       <li><a href="BusinessPlan.html">Business Plan</a></li>
     </ul>
+    <div></div>
   </div>
 </nav>
 
 <div class="container">
   <div class="page-hero fade-up">
     <span class="section-label">Prodotti & Servizi</span>
-    <h1>Listino <em>Prezzi</em></h1>
+    <h1>Listino Prezzi</h1>
     <div class="divider"></div>
     <p style="max-width: 580px;">Esplora la nostra gamma di rover, componenti, soluzioni software e servizi di supporto per l'esplorazione spaziale.</p>
   </div>
@@ -148,21 +112,17 @@
 
 <div class="prices-wrapper">
   <div class="container">
-
-    <!-- Tabs -->
     <div class="price-tabs">
-      <button class="tab-btn active" onclick="showTab('rover', this)">🛰️ Rover ROSITA</button>
-      <button class="tab-btn" onclick="showTab('componenti', this)">⚙️ Componenti</button>
-      <button class="tab-btn" onclick="showTab('software', this)">🤖 Software & AI</button>
-      <button class="tab-btn" onclick="showTab('servizi', this)">🔧 Servizi</button>
+      <button class="tab-btn active" onclick="showTab('rover', this)">Rover ROSITA</button>
+      <button class="tab-btn" onclick="showTab('componenti', this)">Componenti</button>
+      <button class="tab-btn" onclick="showTab('software', this)">Software & AI</button>
+      <button class="tab-btn" onclick="showTab('servizi', this)">Servizi</button>
     </div>
 
     <div class="prices-main">
 
-      <!-- ROVER -->
       <div id="rover" class="price-category visible">
         <div class="cat-header">
-          <span class="cat-icon">🛰️</span>
           <div>
             <span class="section-label">Prodotto principale</span>
             <h2>Rover Spaziale ROSITA</h2>
@@ -181,25 +141,23 @@
               <div class="price-item-name">Modello Avanzato</div>
               <p class="price-item-desc">Intelligenza artificiale per navigazione autonoma, modulo di analisi geologica integrato, sensori avanzati.</p>
             </div>
-            <div class="price-value">€ 5.000.000<small>IVA esclusa</small></div>
+            <div class="price-value">€ 3.500.000<small>IVA esclusa</small></div>
           </div>
           <div class="price-item">
             <div>
               <div class="price-item-name">Modello Scientifico</div>
-              <p class="price-item-desc">Strumenti completi per analisi atmosferica, raccolta dati ad alta precisione, laboratorio chimico integrato. Per missioni di ricerca avanzata.</p>
+              <p class="price-item-desc">Strumenti completi per analisi atmosferica, raccolta dati ad alta precisione, laboratorio chimico integrato.</p>
             </div>
             <div class="price-value">€ 7.500.000<small>IVA esclusa</small></div>
           </div>
         </div>
         <div class="price-note">
-          <p><strong>Nota:</strong> Tutti i modelli includono garanzia di 24 mesi, documentazione tecnica completa e supporto post-vendita per i primi 6 mesi. Personalizzazioni su richiesta. Prezzi indicativi, preventivo dettagliato su richiesta.</p>
+          <p>Tutti i modelli includono garanzia di 24 mesi, documentazione tecnica completa e supporto post-vendita per i primi 6 mesi. Prezzi indicativi, preventivo dettagliato su richiesta.</p>
         </div>
       </div>
 
-      <!-- COMPONENTI -->
       <div id="componenti" class="price-category">
         <div class="cat-header">
-          <span class="cat-icon">⚙️</span>
           <div>
             <span class="section-label">Hardware</span>
             <h2>Componenti & Tecnologie</h2>
@@ -237,10 +195,8 @@
         </div>
       </div>
 
-      <!-- SOFTWARE -->
       <div id="software" class="price-category">
         <div class="cat-header">
-          <span class="cat-icon">🤖</span>
           <div>
             <span class="section-label">Intelligenza Artificiale</span>
             <h2>Software & AI</h2>
@@ -271,10 +227,8 @@
         </div>
       </div>
 
-      <!-- SERVIZI -->
       <div id="servizi" class="price-category">
         <div class="cat-header">
-          <span class="cat-icon">🔧</span>
           <div>
             <span class="section-label">Supporto</span>
             <h2>Servizi Aggiuntivi</h2>
@@ -290,32 +244,35 @@
           </div>
           <div class="price-item">
             <div>
-              <div class="price-item-name">Tour dei nostri centri di sviluppo per classi</div>
-              <p class="price-item-desc">Visita guidata ai nostri laboratori e centri di sviluppo, pensata per gruppi scolastici e studenti.</p>
+              <div class="price-item-name">Supporto tecnico & formazione</div>
+              <p class="price-item-desc">Assistenza tecnica continuativa e programmi di formazione per il personale del cliente.</p>
             </div>
-            <div class="price-value">€ 30<small>a persona</small></div>
+            <div class="price-value">€ 100.000<small>all'anno</small></div>
           </div>
           <div class="price-item">
             <div>
-              <div class="price-item-name">Lezione tenuta da un nostro ricercatore con costruzione di mini rover</div>
-              <p class="price-item-desc">Sessione educativa con un ricercatore Robomars: teoria, pratica e costruzione di un mini rover.</p>
+              <div class="price-item-name">Consulenze per sviluppo di tecnologie spaziali</div>
+              <p class="price-item-desc">Supporto strategico e tecnico per lo sviluppo di nuove tecnologie nel settore aerospaziale.</p>
             </div>
-            <div class="price-value">€ 200<small>a sessione</small></div>
+            <div class="price-value">€ 500.000 – 2.000.000<small>in base al progetto</small></div>
           </div>
         </div>
         <div class="price-note">
-          <p><strong>Tutti i servizi</strong> sono soggetti a contratto specifico. Contattateci per un preventivo personalizzato: <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e1c010c01030f1c1d400d0f2e09030f0702400d0103">[email&#160;protected]</a></strong></p>
+          <p>Tutti i servizi sono soggetti a contratto specifico. Contattateci per un preventivo personalizzato: <strong>robomars.ca@gmail.com</strong></p>
         </div>
       </div>
 
-    </div><!-- /prices-main -->
+    </div>
   </div>
 </div>
 
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-logo">🚀 ROBOMARS</span>
+      <span class="footer-logo">
+        <img src="logo.png" alt="Robomars">
+        ROBOMARS
+      </span>
       <p>© 2026 Robomars — Esplorando il futuro dell'umanità</p>
     </div>
   </div>
@@ -329,5 +286,6 @@
     btn.classList.add('active');
   }
 </script>
+
 </body>
 </html>
